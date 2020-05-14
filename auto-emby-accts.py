@@ -1,9 +1,11 @@
-import requests
 import json
-from os import path
 import random
 import string
-from secrets import base_url, api_token
+from os import path
+from secrets import api_token, base_url
+
+import requests
+
 
 def add_user(username, passwd, connect, base_url, api_token):
     '''
