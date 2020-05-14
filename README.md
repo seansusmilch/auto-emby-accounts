@@ -83,3 +83,5 @@ Here's a list of user settings explicitly changed by this script. A screenshot o
 |EnablePublicSharing|False|
 
 ![alt text](https://i.imgur.com/uYbYqMk.png)
+
+[![HitCount](http://hits.dwyl.com/stummyhurt/auto-emby-accounts.svg)](http://hits.dwyl.com/stummyhurt/auto-emby-accounts)
