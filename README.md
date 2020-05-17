@@ -19,7 +19,7 @@ This script takes action on 3 files `in.txt`,`out.txt`, and `secrets.py` which n
 To define your server url and api token, make a file named `secrets.py` in the same directory as `auto-emby-accts.py` with this format
 
 ```python
-base_url = ""   # put the url your emby server here (Ex: "http://localhost:8096")
+base_url = ""   # put the url of your emby server here (Ex: "http://localhost:8096")
 api_token = ""  # put the static api token for your server here (Ex: "ac4e8d00c23842f39e6f793383152360")
 ```
 
