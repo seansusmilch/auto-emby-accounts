@@ -41,7 +41,7 @@ The account password will be a random 20 character alphanumeric string.
 Outupt of this script, in `out.txt`, should look something like this
 
 ```text
-!test	testConnectUsername K46uLsbhQ6EhZY2a7OK9
+!testConnectUsername	testConnectUsername K46uLsbhQ6EhZY2a7OK9
 test2	testConnectUsername2    LCM4Pyl2AFc7gr8zQwi4	-CONNECTERROR-
 -----------------------------
 ```
