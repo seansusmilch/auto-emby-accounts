@@ -11,14 +11,19 @@ log_level = 3
 # and add the emby connect account to that user.
 overwrite = False
 
+# The url to your Emby server
 emby_base_url = 'http://localhost:8096'
 
+# Login info for an account on your Emby server that has admin privileges
+# Username
 emby_admin_uname = ''
+# Password
 emby_admin_passwd = ''
 
 # The script will avoid doing anything to these users AND admin_uname
 avoid_users = [
     'Python',
+    'Admin1122'
 ]
 
 # number of seconds before the first request will timeout.
@@ -31,7 +36,7 @@ tsv_out = True
 # the start of the username on the server
 user_prefix = '!'
 
-# These are the user policy changes that will be made. 
+# These are the user policy changes that will be made. Can be empty
 user_policy = {
     'IsAdministrator':                  False,          # True|False
     'IsHidden':                         True,           # True|False

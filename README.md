@@ -35,13 +35,13 @@ log_level = 3
 overwrite = False
 
 # The url to your Emby server
-base_url = 'http://localhost:8096'
+emby_base_url = 'http://localhost:8096'
 
 # Login info for an account on your Emby server that has admin privileges
 # Username
-admin_uname = ''
+emby_admin_uname = ''
 # Password
-admin_passwd = ''
+emby_admin_passwd = ''
 
 # The script will avoid doing anything to these users AND admin_uname
 avoid_users = [
