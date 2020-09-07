@@ -11,11 +11,10 @@ log_level = 3
 # and add the emby connect account to that user.
 overwrite = False
 
-api_token = '3e77f677c7cf44f29034106330e5922b'
-base_url = 'http://localhost:8096'
+emby_base_url = 'http://localhost:8096'
 
-admin_uname = ''
-admin_passwd = ''
+emby_admin_uname = ''
+emby_admin_passwd = ''
 
 # The script will avoid doing anything to these users AND admin_uname
 avoid_users = [

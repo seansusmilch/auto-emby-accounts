@@ -8,8 +8,8 @@ from os import mkdir, path
 
 import requests
 
-from config import (admin_passwd, admin_uname, api_token, avoid_users,
-                    base_url, log_level, overwrite, timeout, tsv_out,
+from config import (emby_admin_passwd, emby_admin_uname, avoid_users,
+                    emby_base_url, log_level, overwrite, timeout, tsv_out,
                     user_policy, user_prefix)
 
 switcher = {
@@ -43,7 +43,11 @@ log.debug('Started script!')
 
 out_file = f'{dir}/out.' + 'tsv' if tsv_out else 'txt'
 
-def add_user(username, connect, passwd = 0):
+def add_user(username, connect, 
+    passwd = ''.join(random.choice(string.ascii_letters + string.digits) for i in range(20)),
+    base_url = emby_base_url,
+    admin_uname = emby_admin_uname,
+    admin_passwd = emby_admin_passwd):
     '''
     username: the username for the new user
     passwd: the password for the new user
