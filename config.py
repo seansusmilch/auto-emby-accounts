@@ -9,21 +9,20 @@ log_level = 3
 # When set true, if the script finds a user that already exists,
 # the script will attempt to change the policy of that user,
 # and add the emby connect account to that user.
-# Default: False
-overwrite = True
+overwrite = False
 
 api_token = '3e77f677c7cf44f29034106330e5922b'
 base_url = 'http://localhost:8096'
 
-admin_uname = 'test'
-admin_passwd = 'joemama99'
+admin_uname = ''
+admin_passwd = ''
 
 # The script will avoid doing anything to these users AND admin_uname
 avoid_users = [
     'Python',
 ]
 
-# number of seconds before the first request will timeout. Default:2
+# number of seconds before the first request will timeout.
 timeout = 2
 
 # Determine whether or not to output in tsv format. Will be text if False
