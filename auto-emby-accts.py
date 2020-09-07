@@ -34,7 +34,7 @@ def add_user(username, passwd, connect, base_url, api_token):
         msg += "-CREATEERROR-"
     try:
         data = json.loads(res.text)
-    except json.decoder.JSONDecodeError as e:
+    except json.decoder.JSONDecodeError:
         if ' already exists' in res.text:
             print(username, ' already exists! Skipping...')
         elif 'Access token is invalid or expired.' == res.text:
