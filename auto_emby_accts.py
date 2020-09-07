@@ -1,17 +1,16 @@
-from datetime import datetime
-from email import header
 import json
 import logging as log
 import random
 import string
 import sys
+from datetime import datetime
 from os import mkdir, path
 
 import requests
-from requests.api import head
 
-from config import (admin_passwd, admin_uname, api_token, base_url, log_level,
-                    overwrite, timeout, tsv_out, user_policy, user_prefix, avoid_users)
+from config import (admin_passwd, admin_uname, api_token, avoid_users,
+                    base_url, log_level, overwrite, timeout, tsv_out,
+                    user_policy, user_prefix)
 
 switcher = {
     4: log.DEBUG,

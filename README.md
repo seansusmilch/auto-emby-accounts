@@ -10,7 +10,6 @@ Use python requests to add and configure new accounts on an Emby server.
 
 * Python 3
   * requests
-  * json
 * An Emby account with administrator privileges
 
 ## Usage
