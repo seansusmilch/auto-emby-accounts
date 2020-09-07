@@ -113,7 +113,7 @@ def add_user(username, connect, passwd = 0):
     except json.decoder.JSONDecodeError:
         if ' already exists' in res.text:
             if not overwrite:
-                log.info(f'{username} already exists and overwrite is off! Skipping...')
+                log.info(f'{username} already exists and overwrite is off. Skipping...')
                 return
             else:
                 # reset password if overwrite is on
@@ -169,7 +169,7 @@ def add_user(username, connect, passwd = 0):
     if res.status_code > 299:
         log.error(f'Error occurred when changing policy! Stopping... {res.status_code} - {res.text}')
         sys.exit(1)
-    log.info('Successfully set policy!')
+    log.info('Successfully set policy.')
 
     #
     # LINK EMBY CONNECT ACCOUNT
@@ -183,14 +183,14 @@ def add_user(username, connect, passwd = 0):
     if res.status_code > 299:
         log.warning(f'Connect link unsuccessful for {username}:{connect}. {res.status_code} - {res.text}')
     else:
-        log.info('Successfully linked Emby connect account!')
+        log.info('Successfully linked Emby connect account.')
 
     #
     # APPEND TO OUT.TXT
     # 
     
     with open(out_file, 'a+', encoding='utf-8') as file:
-        log.info(f'Writing output to {out_file}!')
+        log.info(f'Writing output to {out_file}')
         file.seek(0)
         if len(file.read(10)) > 0:
             file.write('\n')
