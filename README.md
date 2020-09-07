@@ -8,80 +8,124 @@ Use python requests to add and configure new accounts on an Emby server.
 
 ## Requirements
 
-* Python (I've only tested 3.8.2) with the following modules
+* Python 3
   * requests
   * json
+* An Emby account with administrator privileges
 
 ## Usage
 
-This script takes action on 3 files `in.txt`,`out.txt`, and `secrets.py` which need to be in the same directory as `auto-emby-accts.py`.
+To get the script started, you need a couple inputs. First, and the most important, would be the `config.py` file.
 
-To define your server url and api token, make a file named `secrets.py` in the same directory as `auto-emby-accts.py` with this format
+### Configuration
+
+`config.py` will have comments above the definition that will explain what each setting does.
 
 ```python
-base_url = ""   # put the url of your emby server here (Ex: "http://localhost:8096")
-api_token = ""  # put the static api token for your server here (Ex: "ac4e8d00c23842f39e6f793383152360")
+# Different Logging Levels
+#     4: DEBUG
+#     3: INFO
+#     2: WARNING
+#     1: ERROR
+#     0: CRITICAL
+log_level = 3
+
+# When set true, if the script finds a user that already exists,
+# the script will attempt to change the policy of that user,
+# and add the emby connect account to that user.
+overwrite = False
+
+# The url to your Emby server
+base_url = 'http://localhost:8096'
+
+# Login info for an account on your Emby server that has admin privileges
+# Username
+admin_uname = ''
+# Password
+admin_passwd = ''
+
+# The script will avoid doing anything to these users AND admin_uname
+avoid_users = [
+    'Python',
+    'Admin1122'
+]
+
+# number of seconds before the first request will timeout.
+timeout = 2
+
+# Determine whether or not to output in tsv format. Will be text if False
+tsv_out = True
+
+# If all thats provided is a connect username, this prefix will be put at
+# the start of the username on the server
+user_prefix = '!'
+
+# These are the user policy changes that will be made. Can be empty
+user_policy = {
+    # 'IsAdministrator':                  False,          # True|False
+    # 'IsHidden':                         True,           # True|False
+    # 'IsHiddenRemotely':                 True,           # True|False
+    # 'IsDisabled':                       False,          # True|False
+    # 'MaxParentalRating':	            None,           # int|None
+    # 'BlockedTags':	                    [],             # string[]
+    # 'EnableUserPreferenceAccess':	    True,           # True|False
+    # 'AccessSchedules':	                [],             # [Configuration.AccessSchedule{...}]
+    # 'BlockUnratedItems':	            [],             # string[Movie, Trailer, Series, Music, Game, Book, LiveTvChannel, LiveTvProgram, ChannelContent, Other]
+    # 'EnableRemoteControlOfOtherUsers':  False,          # True|False
+    # 'EnableSharedDeviceControl':        True,           # True|False
+    # 'EnableRemoteAccess':               True,           # True|False
+    # 'EnableLiveTvManagement':           False,          # True|False
+    # 'EnableLiveTvAccess':               False,          # True|False
+    # 'EnableMediaPlayback':	            True,           # True|False
+    # 'EnableAudioPlaybackTranscoding':	True,           # True|False
+    # 'EnableVideoPlaybackTranscoding':	True,           # True|False
+    # 'EnablePlaybackRemuxing':	        True,           # True|False
+    # 'EnableContentDeletion':            False,          # True|False
+    # 'EnableContentDeletionFromFolders': [],             # string[]
+    # 'EnableContentDownloading':         True,           # True|False
+    # 'EnableSubtitleDownloading':        False,          # True|False
+    # 'EnableSubtitleManagement':         False,          # True|False
+    # 'EnableSyncTranscoding':            False,          # True|False
+    # 'EnableMediaConversion':            False,          # True|False
+    # 'EnabledDevices':	                [],             # string[]
+    # 'EnableAllDevices':	                True,           # True|False
+    # 'EnabledChannels':	                [],             # string[]
+    # 'EnableAllChannels':	            True,           # True|False
+    # 'EnabledFolders':                   [],             # string[]
+    # 'EnableAllFolders':                 True,           # True|False
+    # 'InvalidLoginAttemptCount':	        10,             # int
+    # 'EnablePublicSharing':              False,          # True|False
+    # 'BlockedMediaFolders':              [],             # string[]
+    # 'BlockedChannels':	                [],             # string[]
+    # 'RemoteClientBitrateLimit':	        12,             # int
+    # 'AuthenticationProviderId':	        '',             # string
+    # 'ExcludedSubFolders':	            [],             # string[]
+    # 'DisablePremiumFeatures':	        False           # True|False
+}
 ```
+
+### Adding Users
 
 To define the usernames of the accounts, create a file named `in.txt` and use the following format, values comma separated.
 
 ```text
-test, testConnectUsername
-testConnectUsername
+test, ConnectUsername1
+ConnectUsername2
 ```
 
- With the first line in `in.txt`, the script will create a user named **test** and attempt to link **testConnectUsername** to that account.
+ With the first line in `in.txt`, the script will create a user named **test** and attempt to link **ConnectUsername1** to that account.
 
-The second line will create a user named **!testConnectUsername** (notice the "!" at the beginning) and attempt to link **testConnectUsername** to that account.
+The second line will create a user named **!ConnectUsername2** and attempt to link **testConnectUsername** to that account. The "!" can be changed in the config under user_prefix
 
 The account password will be a random 20 character alphanumeric string.
 
 ## Output
 
-Outupt of this script, in `out.txt`, should look something like this
+Outupt of this script, in `out.txt` or `out.tsv`, should look something like this
 
-```text
-!testConnectUsername	testConnectUsername K46uLsbhQ6EhZY2a7OK9
-test2	testConnectUsername2    LCM4Pyl2AFc7gr8zQwi4	-CONNECTERROR-
------------------------------
+```tsv
+---------------[2020-09-07 03:18:33.671850]---------------
+LocalUser69420	EmbyConnect123	1WabMUMnaaXylCfIGrnx
 ```
 
-Values are tab separated. The leftmost value is the username *on the emby server*, while the second value is the *emby connect username*. The third value is the password for the account on the server. Any values past this should be error messages. A line of dashes will print after each run, given that no uncaught exceptions occured.
-
-## Errors
-
-I have not extensively tested for every possible error but here are some that can occur.
-
-```text
--CONNECTERROR-                              out.txt error. The script could not link an account to emby connect. The account may be already linked on the server, or the connect username is invalid.
--CREATEERROR-                               out.txt error. This shouldn't be able to be written to out.txt
-...already exists! Skipping...              Console error. There is an account on the emby server that has the username trying to be added.
-API token is invalid. Stopping...           Console error. Your API token in secrets.py is invalid.
-```
-
-### Emby User Settings
-
-Here's a list of user settings explicitly changed by this script. A screenshot of what the user settings page will look like is also down there. These settings are to suit my own needs but can be edited in `auto-emby-accts.py` under the section that begins with the comment `# CHANGE POLICY`
-
-|   Feature    |   Value    |
-|-------|-------|
-|IsAdministrator|False|
-|IsHidden|True|
-|IsHiddenRemotely|True|
-|IsDisabled|False|
-|EnableRemoteControlOfOtherUsers|False|
-|EnableSharedDeviceControl|False|
-|EnableRemoteAccess|True|
-|EnableLiveTvManagement|False|
-|EnableLiveTvAccess|False|
-|EnableContentDeletion|False|
-|EnableContentDownloading|True|
-|EnableSubtitleDownloading|False|
-|EnableSubtitleManagement|False|
-|EnableSyncTranscoding|False|
-|EnableMediaConversion|False|
-|EnablePublicSharing|False|
-
-![alt text](https://i.imgur.com/uYbYqMk.png)
-
-[![HitCount](http://hits.dwyl.com/stummyhurt/auto-emby-accounts.svg)](http://hits.dwyl.com/stummyhurt/auto-emby-accounts)
+Values are tab separated. The leftmost value is the username *on the emby server*, while the second value is the *emby connect username*. The third value is the *password* for the account on the server.
