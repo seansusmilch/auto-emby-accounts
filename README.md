@@ -4,7 +4,7 @@ Use python requests to add and configure new accounts on an Emby server.
 
 ## Notice
 
->I'm an inexperienced coder and even more inexperienced when it comes to API requests. Use this script at your own risk.
+>Use this script at your own risk.
 
 ## Requirements
 
