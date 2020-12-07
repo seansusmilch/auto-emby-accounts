@@ -80,7 +80,7 @@ test, ConnectUsername1
 ConnectUsername2
 ```
 
- With the first line in `in.txt`, the script will create a user named **test** and attempt to link **ConnectUsername1** to that account.
+ With the first line in this example, the script will create a user named **test** and attempt to link **ConnectUsername1** to that account.
 
 The second line will create a user named **!ConnectUsername2** and attempt to link **ConnectUsername2** to that account. The "!" can be changed in the config under user_prefix
 
